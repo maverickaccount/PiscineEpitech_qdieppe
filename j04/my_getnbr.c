@@ -35,16 +35,22 @@ int	isnum(char a)
 		return 1;
 }
 
-int	verify_for_max(const char *str, const char *my_str)
+int	verify_for_max(const char *str, const char *my_str, int y)
 {
 	int	i;
-	i = 	0;
+	i = 0;
 
 	while(i < 10)
 	{
-		if(my_str[i] < str[i])
+		if(my_str[y] < str[i])
 			return 1;
-		i++;
+		else if (my_str[y] == str[i])
+		{
+			i++;
+			y++;
+		}
+		else
+			return 0;
 	}
 	return 0;
 }
@@ -58,6 +64,7 @@ int     isequal(const char *str, const char *my_str)
         {
 		if(str[i] != my_str[i])
 			return 0;
+		i++;
         }
         return 1;
 }
@@ -87,7 +94,7 @@ int	my_getnbr(char const *str)
 	{
 		if(isneg == '-')
 		{
-			if(verify_for_max("2147483648", (char *) str))
+			if(verify_for_max("2147483648", str, 1))
 			{
 				while(i < (size + i) && isnum(str[i]))
                 		{
@@ -98,12 +105,14 @@ int	my_getnbr(char const *str)
                 		}
 
 			}
-			if(isequal("2147483648", str))
+			else if(isequal("2147483648", str + 1))
 					return -2147483648;
+			else
+				return 0;
 		}
 		else
 		{
-			if(verify_for_max("2147483648",  str))
+			if(verify_for_max("2147483648",  str, 0))
 			{
 				while(i < (size + i) && isnum(str[i]))
                                 {       
@@ -114,6 +123,8 @@ int	my_getnbr(char const *str)
                                 }       
 
 			}
+			else
+				return 0;
 		}
 	}
 	else
