@@ -139,11 +139,3 @@ int	my_getnbr(char const *str)
 		return (int) (number);
 	}
 }
-
-int	main(int argc, char **argv)
-{
-	int k;
-	k = my_getnbr(argv[1]);
-	printf("%d\n", k);
-	return 0;
-}
